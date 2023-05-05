@@ -106,6 +106,7 @@ exports.protectRoutes = catchAsyncError(async (req, res, next) => {
   }
 
   req.user = currentUser;
+  
   next();
 });
 

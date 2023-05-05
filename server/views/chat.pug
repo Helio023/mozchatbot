@@ -18,11 +18,14 @@ head
       nav.nav
         a(href='/')
           h1.nav__logo
-            | Mozbot
+            | Mozbot #{user.username}
             img.logo__img(src='./assets/bot.png' alt='robozinho')
           
     #chat_container
-    form
-      textarea(name='prompt' cols='1' rows='1' placeholder='Olá, o que gostaria de saber?')
-      button(type='submit') Enviar
+    if user.status === 'active'
+      form
+        textarea(name='prompt' cols='1' rows='1' placeholder='Olá, o que gostaria de saber?')
+        button(type='submit') Enviar
+    else
+      p Recarrega a sua conta
   script(type='module' src='/script.js')
