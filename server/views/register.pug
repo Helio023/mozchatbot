@@ -1,0 +1,20 @@
+doctype html
+head
+  meta(charset='UTF-8')
+  meta(http-equiv='X-UA-Compatible' content='IE=edge')
+  meta(name='viewport' content='width=device-width, initial-scale=1.0')
+  title Mozbot - criar conta
+  link(rel='stylesheet' href='style.css')
+.container
+  h1 Registar
+  form
+    label(for='email') Nome de usu&aacute;rio
+    input#username(type='text' name='username' required='')
+    label(for='email') Email
+    input#email(type='email' name='email' required='')
+    label(for='password') Senha
+    input#password(type='password' name='password' required='')
+    label(for='password') Confirmar senha
+    input#password-confirm(type='password' name='passwordConfirm' required='')
+    button(type='submit') Registar
+  a.register-link(href='/login') Tenho conta? Entrar

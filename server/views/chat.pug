@@ -1,0 +1,28 @@
+doctype html
+head
+  meta(charset='UTF-8')
+  meta(http-equiv='X-UA-Compatible' content='IE=edge')
+  meta(name='viewport' content='width=device-width, initial-scale=1.0')
+  head
+    meta(charset='UTF-8')
+    link(rel='icon' type='image/svg+xml' href='/favicon.ico')
+    meta(name='author' content='Hélio Engrácia Mapupo')
+    meta(name='google-site-verification' content='NcaIGPNruyoMP8Iwe6pj34SYOjz__-r9Ja69i2Q-BRI')
+    meta(name='description' content='Este é um robo de inteligência artificial que pode responder quase tudo que você precisa saber')
+    meta(name='viewport' content='width=device-width, initial-scale=1.0')
+    title
+      | Mozbot - uma intelig&ecirc;ncia artificial que responde todas suas perguntas
+    link(rel='stylesheet' href='./chat.css')
+  #app
+    header.header
+      nav.nav
+        a(href='/')
+          h1.nav__logo
+            | Mozbot
+            img.logo__img(src='./assets/bot.png' alt='robozinho')
+          
+    #chat_container
+    form
+      textarea(name='prompt' cols='1' rows='1' placeholder='Olá, o que gostaria de saber?')
+      button(type='submit') Enviar
+  script(type='module' src='/script.js')
