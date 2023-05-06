@@ -4,7 +4,7 @@ async function login(email, password) {
   try {
     const res = await axios({
       method: 'POST',
-      url: 'http://localhost:3000/login',
+      url: 'https://mozbotchat.onrender.com/login',
       data: {
         email,
         password,
