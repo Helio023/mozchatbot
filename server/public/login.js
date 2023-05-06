@@ -17,7 +17,7 @@ async function login(email, password) {
       }, 3000);
     }
   } catch (error) {
-    console.log(error.response.data);
+    console.log(error);
   }
 }
 
