@@ -1,10 +1,13 @@
 require('dotenv').config({path: '.env'})
 const express = require('express');
 const cors = require('cors');
+const cron = require('node-cron')
+
 
 const { join } = require('path');
 const cookieParser = require('cookie-parser')
-const {connectDb} = require('./utils/dbConnection')
+const {connectDb} = require('./utils/dbConnection');
+const { checkUserStatus } = require('./controllers/chatControllers');
 
 
 
@@ -30,6 +33,10 @@ app.use(cookieParser())
 
 //Db connection
 connectDb()
+
+cron.schedule('1,2,3,4,5 * * * *', () => {
+  checkUserStatus();
+});
 
 //view routes
 app.use('/', require('./routes/viewRoutes'));

@@ -13,15 +13,17 @@ const userSchema = new mongoose.Schema(
       unique: [true, 'Este nome de usuário já foi usado.'],
       trim: true,
     },
+    purchased_issued_at: { type: Date },
+    purchased_expires_at: { type: Date },
     role: {
       type: String,
       enum: ['user', 'admin'],
       default: 'user',
     },
     status: {
-      type: String,
-      enum: ['active', 'blocked'],
-      default: 'active',
+      type: Boolean,
+    
+      default: false,
     },
     email: {
       type: String,
