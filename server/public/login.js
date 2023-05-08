@@ -1,6 +1,6 @@
 const form = document.querySelector('#form');
 
-async function login(email, password) {
+export const login = async (email, password) => {
   try {
     const res = await axios({
       method: 'POST',
@@ -21,10 +21,3 @@ async function login(email, password) {
   }
 }
 
-form.addEventListener('submit', (e) => {
-  e.preventDefault();
-  const email = document.querySelector('#email');
-  const password = document.querySelector('#password');
-
-  login(email.value, password.value);
-});
