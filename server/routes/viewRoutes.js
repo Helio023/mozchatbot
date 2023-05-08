@@ -1,6 +1,6 @@
 const router = require('express').Router()
 const {isLoggedIn, protectRoutes } = require('../controllers/authController')
-const { home, register, chat } = require('../controllers/viewController')
+const { home, register, chat,  } = require('../controllers/viewController')
 
 // router.use(isLoggedIn)
 router.route('/').get(home)

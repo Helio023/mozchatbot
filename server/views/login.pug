@@ -12,8 +12,8 @@ head
     input#email(type='email' name='email' required='')
     label(for='password') Senha
     input#password(type='password' name='password' required='')
-    button(type='submit') Entrar
+    button#btn(type='submit') Entrar
   a.register-link(href='/register') N&atilde;o tem conta? Registar
   //- a.forgot-password-link(href='#') Esqueci minha senha?
-script(src="/bundle.js") 
+script(src="/login.js" type='module') 
 script(src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js") 

@@ -7,7 +7,7 @@ head
   link(rel='stylesheet' href='style.css')
 .container
   h1 Registar
-  form
+  form#register
     label(for='email') Nome de usu&aacute;rio
     input#username(type='text' name='username' required='')
     label(for='email') Email
@@ -16,5 +16,7 @@ head
     input#password(type='password' name='password' required='')
     label(for='password') Confirmar senha
     input#password-confirm(type='password' name='passwordConfirm' required='')
-    button(type='submit') Registar
-  a.register-link(href='/login') Tenho conta? Entrar
+    button.register-btn(type='submit') Registar
+  a.register-link(href='/') Tenho conta? Entrar
+script(src="/register.js") 
+script(src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js")

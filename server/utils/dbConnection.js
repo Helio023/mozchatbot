@@ -1,4 +1,4 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 
 const dbUrl = process.env.DB_URL;
 exports.connectDb = async () => {

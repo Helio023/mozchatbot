@@ -52,8 +52,7 @@ function chatStripe(isAi, value, uniqueId) {
   </div>
   `;
 }
-
-const handleSubmit = async (e) => {
+export const handleSubmit = async (e) => {
   e.preventDefault();
   // User message
   const data = new FormData(form);
@@ -84,7 +83,7 @@ const handleSubmit = async (e) => {
 
   if (response.ok) {
     const data = await response.json();
-    console.log(data);
+
     const parsedData = data.bot.trim();
 
     typeText(messageDiv, parsedData);
@@ -99,4 +98,3 @@ form.addEventListener('keyup', (e) => {
     handleSubmit(e);
   }
 });
-

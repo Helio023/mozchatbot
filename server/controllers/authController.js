@@ -52,7 +52,7 @@ exports.login = catchAsyncError(async (req, res, next) => {
   }
 
   const token = user.createToken(user);
-
+ 
   sendTokenViaCookie(user, 200, req, res, token);
 
   res.status(200).json({
