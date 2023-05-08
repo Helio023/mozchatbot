@@ -16,15 +16,15 @@ function showAlert(type, msg) {
   setTimeout(() => hideAlert(), 5000);
 }
 
-// const production_url = 'https://mozbotchat.onrender.com';
-const dev_url = 'http://localhost:3000';
+const production_url = 'https://mozbotchat.onrender.com';
+// const dev_url = 'http://localhost:3000';
 
 const login = (email, password) => {
   btn.textContent = 'Entrando...';
 
   axios({
     method: 'POST',
-    url: `${dev_url}/login`,
+    url: `${production_url}/login`,
     data: {
       email,
       password,
