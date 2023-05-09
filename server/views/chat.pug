@@ -5,7 +5,7 @@ head
   meta(name='viewport' content='width=device-width, initial-scale=1.0')
   head
     meta(charset='UTF-8')
-    link(rel='icon' type='image/svg+xml' href='/favicon.ico')
+    link(rel='icon' type='image/svg+xml' href='/assets/bot.png')
     meta(name='author' content='Hélio Engrácia Mapupo')
     meta(name='google-site-verification' content='NcaIGPNruyoMP8Iwe6pj34SYOjz__-r9Ja69i2Q-BRI')
     meta(name='description' content='Este é um robo de inteligência artificial que pode responder quase tudo que você precisa saber')
@@ -27,7 +27,7 @@ head
         textarea(name='prompt' cols='1' rows='1' placeholder='Olá, o que gostaria de saber?')
         button(type='submit') Enviar
     else
-      a#whatsapp-btn(href=`https://wa.me/258845031480?text=Preciso de uma recarga MozBot para o seguinte email: ${user.email}"` target="_blank") Recarrega a sua conta para usar o Mozbot
+      a#whatsapp-btn(href=`https://wa.me/258845031480?text=Preciso de uma recarga MozBot para o seguinte email: ${user.email}"` target="_blank") Recarrega a sua conta para usar o Mozbot: 350 MT/mês
   script(type='module' src='/script.js')
   script(src="/logout.js" type="module") 
   script(src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js")
