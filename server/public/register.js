@@ -33,6 +33,7 @@ const register = (email, password, username, passwordConfirm) => {
     },
   })
     .then(() => {
+     
       btn.textContent = "Registar"
       showAlert('success', 'Usuário registado com sucesso!');
       setTimeout(() => {

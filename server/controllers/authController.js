@@ -9,7 +9,6 @@ const sendTokenViaCookie = (user, statusCode, req, res, token) => {
     expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
     httpOnly: true,
   });
-  
 };
 
 exports.signup = catchAsyncError(async (req, res, next) => {
@@ -52,14 +51,13 @@ exports.login = catchAsyncError(async (req, res, next) => {
   }
 
   const token = user.createToken(user);
- 
+
   sendTokenViaCookie(user, 200, req, res, token);
 
   res.status(200).json({
     status: 'success',
     token,
   });
-  
 });
 
 exports.protectRoutes = catchAsyncError(async (req, res, next) => {
@@ -80,7 +78,7 @@ exports.protectRoutes = catchAsyncError(async (req, res, next) => {
     //     401
     //   )
     // );
-    res.status(400).redirect('/')
+    res.status(400).redirect('/');
   }
 
   const promisifyDecoded = promisify(jwt.verify);
@@ -102,11 +100,11 @@ exports.protectRoutes = catchAsyncError(async (req, res, next) => {
     //     401
     //   )
     // );
-    res.status(400).redirect('/')
+    res.status(400).redirect('/');
   }
 
   req.user = currentUser;
-  
+
   next();
 });
 
@@ -130,7 +128,7 @@ exports.isLoggedIn = catchAsyncError(async (req, res, next) => {
     }
 
     res.locals.user = currentUser;
-   return next();
+    return next();
   }
   return next();
 });

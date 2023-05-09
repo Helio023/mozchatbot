@@ -31,6 +31,7 @@ const login = (email, password) => {
     },
   })
     .then(() => {
+      
       btn.textContent = "Enviar"
       showAlert('success', 'Usuário logado com sucesso!');
       setTimeout(() => {
