@@ -176,7 +176,7 @@ a {
   display: none;
 }
 
-form {
+#chat-form {
   width: 100%;
   max-width: 1280px;
   margin: 0 auto;
@@ -213,7 +213,7 @@ button {
   font-weight: bold;
 }
 
-form img {
+#chat-form img {
   width: 30px;
   height: 30px;
 }

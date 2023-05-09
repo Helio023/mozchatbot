@@ -133,6 +133,14 @@ exports.isLoggedIn = catchAsyncError(async (req, res, next) => {
   return next();
 });
 
+exports.logout = (req, res) => {
+  res.cookie('jwt', 'loggedout', {
+    expires: new Date(Date.now() + 10 * 1000),
+    httpOnly: true
+  });
+  res.status(200).json({ status: 'success' });
+};
+
 // exports.createAuthInFrontEnd = catchAsyncError(async (req, res, next) => {
 //   const user = await User.findOne({ email: req.user.email });
 

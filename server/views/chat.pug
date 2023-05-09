@@ -20,12 +20,14 @@ head
           h1.nav__logo
             | Mozbot
             img.logo__img(src='./assets/bot.png' alt='robozinho')
-          
+        button#logout-btn(type='submit') Sair   
     #chat_container
     if user.status === true
-      form
+      form#chat-form
         textarea(name='prompt' cols='1' rows='1' placeholder='Olá, o que gostaria de saber?')
         button(type='submit') Enviar
     else
-      a#whatsapp-btn(href=`https://wa.me/258845031480?text=Preciso de uma recarga MozBot: ${user.email}" target="_blank`) Recarrega a sua conta para usar o Mozbot
+      a#whatsapp-btn(href=`https://wa.me/258845031480?text=Preciso de uma recarga MozBot para o seguinte email: ${user.email}"` target="_blank") Recarrega a sua conta para usar o Mozbot
   script(type='module' src='/script.js')
+  script(src="/logout.js" type="module") 
+  script(src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js")

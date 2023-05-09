@@ -1,4 +1,3 @@
-
 const form = document.querySelector('form');
 const chatContainer = document.querySelector('#chat_container');
 
@@ -43,7 +42,9 @@ function chatStripe(isAi, value, uniqueId) {
     <div class="chat">
 
     <div class="profile">
-        <img src="${isAi ? './assets/bot.svg' : './assets/send.svg'}" alt="${isAi ? 'Bot' : 'User'}"/>
+        <img src="${isAi ? './assets/bot.svg' : './assets/send.svg'}" alt="${
+    isAi ? 'Bot' : 'User'
+  }"/>
         
     </div>
     <div class="message" id=${uniqueId}>${value}</div>
@@ -88,13 +89,16 @@ export const handleSubmit = async (e) => {
 
     typeText(messageDiv, parsedData);
   } else {
-    messageDiv.innerHTML = 'Algo deu errado, tenta outra vez.'; 
+    messageDiv.innerHTML = 'Algo deu errado, tenta outra vez.';
   }
 };
+if(form) {
 
-form.addEventListener('submit', handleSubmit);
-form.addEventListener('keyup', (e) => {
-  if (e.code === 'Enter') {
-    handleSubmit(e);
-  }
-});
+  form.addEventListener('submit', handleSubmit);
+  form.addEventListener('keyup', (e) => {
+    if (e.code === 'Enter') {
+      handleSubmit(e);
+    }
+  });
+}
+
