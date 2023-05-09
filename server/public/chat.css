@@ -267,3 +267,19 @@ form img {
   cursor: pointer;
   font-size: 50px;
 }
+
+
+#whatsapp-btn {
+  margin-bottom: 20px;
+  width: 80%;
+  border-radius: 10px;
+  padding: 20px;
+  background: #474853;
+  font-size: 20px;
+  text-align: center;
+}
+
+#whatsapp-btn span {
+  color: #343541;
+  background: #eee;
+}
