@@ -1,6 +1,6 @@
 const logoutBtn = document.querySelector('#logout-btn');
 const url = 'https://mozbotchat.onrender.com';
-// const dev_url = 'http://localhost:3000';
+// const url = 'http://localhost:3000';
 
 const logout = () => {
   axios({
