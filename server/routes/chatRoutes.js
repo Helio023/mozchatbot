@@ -1,9 +1,7 @@
-const { protectRoutes } = require('../controllers/authController')
-const { chat, rechargeAccount } = require('../controllers/chatControllers')
+const { chat } = require('../controllers/chatControllers');
 
-const router = require('express').Router()
+const router = require('express').Router();
 
-router.route('/prompt').post(chat)
-router.route('/recharge').post(protectRoutes,rechargeAccount)
+router.route('/prompt').post(chat);
 
-module.exports = router
+module.exports = router;

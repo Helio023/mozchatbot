@@ -46,6 +46,7 @@ app.use('/', require('./routes/viewRoutes'));
 //server routes
 app.use('/', require('./routes/authRoutes'))
 app.use('/', require('./routes/chatRoutes'))
+app.use('/', require('./routes/adminRoutes'))
 
 const port = process.env.PORT || 3000
 

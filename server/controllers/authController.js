@@ -142,43 +142,22 @@ exports.logout = (req, res) => {
   res.status(200).json({status: 'success'})
 };
 
-// exports.createAuthInFrontEnd = catchAsyncError(async (req, res, next) => {
-//   const user = await User.findOne({ email: req.user.email });
 
-//   if (!user) {
-//     return next(new OperationalError('Usuário não encontrado!', 404));
-//   }
-//   res.status(200).json({
-//     status: 'success',
-//     user,
-//   });
-// });
+exports.restrictTo = (...roles) => {
+  return (req, res, next) => {
+    if (!roles.includes(req.user.role)) {
+      return next(
+        new OperationalError(
+          'Você não tem permissão para acessar esta rota!',
+          403
+        )
+      );
+    }
 
-// exports.restrictTo = (...roles) => {
-//   return (req, res, next) => {
-//     if (!roles.includes(req.user.role)) {
-//       return next(
-//         new operationalError(
-//           'Você não tem permissão para acessar esta rota!',
-//           403
-//         )
-//       );
-//     }
+    next();
+  };
+};
 
-//     next();
-//   };
-// };
-
-// exports.loggout = (req, res) => {
-//   res.cookie('jwt', 'loggegout', {
-//     expires: new Date(Date.now() + 10 * 1000),
-//     httpOnly: true,
-//   });
-
-//   res.status(200).json({
-//     status: 'success',
-//   });
-// };
 
 // exports.forgotPassword = catchAsyncError(async (req, res, next) => {
 //   const user = await User.findOne({ email: req.body.email });
