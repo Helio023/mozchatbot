@@ -10,8 +10,13 @@ const configuration = new Configuration({
 
 const openai = new OpenAIApi(configuration);
 
-exports.chat = async (req, res) => {
-  const prompt = req.body.body;
+exports.chat = async (req, res, next) => {
+  const prompt = req.body.prompt;
+  const user = await User.findOne({email: req.user.email})
+  
+  if(!user || user.status === false) {
+    return next(new SendOperationalError('Este usuário não existe ou a sua conta não está recarregada', 401))
+  }
 
   try {
     const response = await openai.createChatCompletion({
@@ -25,7 +30,7 @@ exports.chat = async (req, res) => {
   } catch (error) {
     res.status(500).json({
       status: 'error',
-      message: error,
+      message: "Algo deu errado! Tenta outra vez.",
     });
   }
 };
