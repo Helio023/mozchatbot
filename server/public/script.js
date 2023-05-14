@@ -69,7 +69,7 @@ export const handleSubmit = async (e) => {
 
   loader(messageDiv);
 
-  const response = await fetch('https://mozbotchat.com/prompt', {
+  const response = await fetch('https://www.mozbotchat.com/prompt', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
