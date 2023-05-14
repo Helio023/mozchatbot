@@ -24,6 +24,14 @@ const userSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    max_tokens: {
+      type: Number,
+      default: 0
+    },
+    used_tokens: {
+      type: Number,
+      default: 0
+    },
     email: {
       type: String,
       required: [true, 'Email obrigatório'],

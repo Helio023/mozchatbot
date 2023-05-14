@@ -72,12 +72,6 @@ exports.protectRoutes = catchAsyncError(async (req, res, next) => {
   }
 
   if (!token) {
-    // return next(
-    //   new OperationalError(
-    //     'Você não está logado. Por favor faz o login para ter acesso.',
-    //     401
-    //   )
-    // );
     res.status(400).redirect('/');
   }
 
@@ -94,12 +88,6 @@ exports.protectRoutes = catchAsyncError(async (req, res, next) => {
   }
 
   if (currentUser.changedPasswordAfterJWT(decoded.iat)) {
-    // return next(
-    //   new OperationalError(
-    //     'Sua senha foi trocada recentemente! Faz login outra vez.',
-    //     401
-    //   )
-    // );
     res.status(400).redirect('/');
   }
 
@@ -136,12 +124,11 @@ exports.isLoggedIn = catchAsyncError(async (req, res, next) => {
 exports.logout = (req, res) => {
   res.cookie('jwt', 'loggedout', {
     expires: new Date(Date.now() + 10 * 1000),
-    httpOnly: true
+    httpOnly: true,
   });
 
-  res.status(200).json({status: 'success'})
+  res.status(200).json({ status: 'success' });
 };
-
 
 exports.restrictTo = (...roles) => {
   return (req, res, next) => {
@@ -157,7 +144,6 @@ exports.restrictTo = (...roles) => {
     next();
   };
 };
-
 
 // exports.forgotPassword = catchAsyncError(async (req, res, next) => {
 //   const user = await User.findOne({ email: req.body.email });
@@ -233,3 +219,21 @@ exports.restrictTo = (...roles) => {
 //     token,
 //   });
 // });
+
+exports.updateAllUsers = catchAsyncError(async (req, res) => {
+  const users = await User.find();
+
+  users.map(async (user) => {
+    {
+      user.max_tokens = 0;
+      user.used_tokens = 0;
+
+      await user.save({ validateBeforeSave: false });
+
+      res.status(201).json({
+        status: 'success',
+        message: 'Usuários actualizados',
+      });
+    }
+  });
+});
