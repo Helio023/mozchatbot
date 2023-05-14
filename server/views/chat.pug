@@ -20,7 +20,9 @@ head
           h1.nav__logo
             | Mozbot
             img.logo__img(src='./assets/bot.png' alt='robozinho')
-        button#logout-btn(type='submit') Sair
+        div#btns
+          a#settings(href='/settings') Configurações
+          button#logout-btn(type='submit') Sair
       if user.role === 'admin'
         a(href='/recharge') Recarregar
       else 

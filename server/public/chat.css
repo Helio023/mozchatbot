@@ -268,7 +268,6 @@ button {
   font-size: 50px;
 }
 
-
 #whatsapp-btn {
   margin-bottom: 20px;
   width: 80%;
@@ -282,4 +281,47 @@ button {
 #whatsapp-btn span {
   color: #343541;
   background: #eee;
+}
+#settings {
+  font-weight: bold;
+}
+
+/* .settings-body {
+  padding: 10px;
+} */
+
+#settings-container {
+  margin: 20px auto;
+  max-width: 400px;
+  border-radius: 10px;
+  background: #3e3e47;
+  padding: 10px;
+}
+.username {
+  text-align: center;
+  font-weight: normal;
+  color: #eee;
+  padding: 10px;
+  border-bottom: 1px solid #504d4d;
+}
+
+.tokens {
+  font-size: 16px;
+  font-weight: normal;
+  color: #eee;
+  margin-top: 10px;
+}
+
+.token-about {
+  margin-top: 20px;
+  border-top: 1px solid #504d4d;
+  background: #eeeeee69;
+  border-radius: 10px;
+  padding: 5px;
+  line-height: 1.7;
+}
+
+.token-about p {
+  font-size: 18px;
+  color: #313030;
 }

@@ -24,11 +24,35 @@ exports.home = catchAsyncError(async (req, res) => {
 
     return res.status(200).redirect('chat');
   }
-  if (req.cookies.jwt === 'loggedout') {
-    return res.status(200).render('login');
-  }
+  
 
   return res.status(200).render('login');
+});
+
+
+exports.settings = catchAsyncError(async (req, res) => {
+  if (req.cookies.jwt && req.cookies.jwt !== 'loggedout') {
+    const promisifyDecoded = promisify(jwt.verify);
+
+    const decoded = await promisifyDecoded(
+      req.cookies.jwt,
+      process.env.JWT_SECRET
+    );
+
+    const currentUser = await User.findById(decoded.id);
+
+    if (!currentUser) {
+      return next();
+    }
+
+    if (currentUser.changedPasswordAfterJWT(decoded.iat)) {
+      return next();
+    }
+
+    return res.status(200).render('settings');
+  }
+
+  return res.status(200).redirect('login');
 });
 
 exports.register = catchAsyncError(async (req, res) => {
