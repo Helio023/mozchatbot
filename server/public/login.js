@@ -16,7 +16,7 @@ function showAlert(type, msg) {
   setTimeout(() => hideAlert(), 5000);
 }
 
-const url = 'https://mozbotchat.onrender.com';
+const url = 'https://mozbotchat.com';
 // const url = 'http://localhost:3000';
 
 const login = (email, password) => {
