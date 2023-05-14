@@ -31,15 +31,14 @@ const login = (email, password) => {
     },
   })
     .then(() => {
-      
-      btn.textContent = "Enviar"
+      btn.textContent = 'Enviar';
       showAlert('success', 'Usuário logado com sucesso!');
       setTimeout(() => {
         window.location.assign('/chat');
       }, 3000);
     })
     .catch((error) => {
-      btn.textContent = 'Enviar'
+      btn.textContent = 'Enviar';
       showAlert('error', error.response?.data);
       console.log(error.response.data.message.split('. ')[0]);
     });
