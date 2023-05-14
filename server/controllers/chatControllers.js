@@ -30,13 +30,14 @@ exports.chat = async (req, res, next) => {
         messages: [{ role: 'user', content: prompt }],
       });
 
-      user.used_tokens = user.used_tokens + response.data.usage.completion_tokens;
-      await user.save({validateBeforeSave: false});
+      user.used_tokens =
+        user.used_tokens + response.data.usage.completion_tokens;
+      await user.save({ validateBeforeSave: false });
 
       return res.status(200).json({
         bot: response.data.choices[0].message.content,
         usedTokens: response.data.usage.completion_tokens,
-        totalUsedTokens: user.used_tokens
+        totalUsedTokens: user.used_tokens,
       });
     } catch (error) {
       return res.status(500).json({
