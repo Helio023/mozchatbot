@@ -1,5 +1,5 @@
 const logoutBtn = document.querySelector('#logout-btn');
-const url = 'https://mozbotchat.com';
+const url = 'https://www.mozbotchat.com';
 // const url = 'http://localhost:3000';
 
 const logout = () => {
