@@ -11,7 +11,7 @@ head
         meta(name='description' content='Este é um robo de inteligência artificial que pode responder quase tudo que você precisa saber')
         meta(name='viewport' content='width=device-width, initial-scale=1.0')
         title
-            | Mozbot - uma intelig&ecirc;ncia artificial que responde todas suas perguntas
+            | Mozbot - minhas configurações
         link(rel='stylesheet' href='./chat.css')
         header.header
             nav.nav
@@ -32,6 +32,20 @@ head
                     | Tokens restantes: 
                     b #{user.max_tokens - user.used_tokens}
                 div.token-about 
+                    h4.title Sobre tokens
                     p 1000 tokens é equivalente a 750 palavras. Dependendo das configurações da sua página (tamanho de fonte, espaçamento de linhas, margens), com 500000 tokens você pode receber respostas até 1500 páginas.
                     p Isto significa que, se juntar todo o texto que vai receber nas diferentes questões que fará ao bot, pode preencher 1500 páginas A4.
-
+                if(user.status === true)
+                    div.recharge
+                        h4.title Dados da recarga
+                        p.tokens Recarregada em: #{user.purchased_issued_at.toLocaleString()}
+                        p.tokens Expira em: #{user.purchased_expires_at.toLocaleString()}
+                if(user.status === true)
+                    div.recharge
+                        h4.title Link de afiliado
+                        p.tokens Daqui a pouco vai poder ganhar dinheiro ao convidar amigos. Estamos trabalhando nisso.
+                        
+script(src="/logout.js" type="module")
+script(src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js") 
+            
+            

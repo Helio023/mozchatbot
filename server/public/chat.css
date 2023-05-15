@@ -293,17 +293,18 @@ button {
 #settings-container {
   margin: 20px auto;
   max-width: 400px;
-  border-radius: 10px;
+  border-radius: 5px;
   background: #3e3e47;
   padding: 10px;
 }
-.username {
+.username, .header {
   text-align: center;
   font-weight: normal;
   color: #eee;
   padding: 10px;
   border-bottom: 1px solid #504d4d;
 }
+
 
 .tokens {
   font-size: 16px;
@@ -315,13 +316,21 @@ button {
 .token-about {
   margin-top: 20px;
   border-top: 1px solid #504d4d;
-  background: #eeeeee69;
-  border-radius: 10px;
-  padding: 5px;
+  border-radius: 5px;
+  padding: 10px 5px;
   line-height: 1.7;
 }
 
 .token-about p {
   font-size: 18px;
-  color: #313030;
+  color: #eee;
+}
+
+.recharge {
+  margin-top: 20px;
+  padding: 5px;
+}
+
+.title {
+  color: #eee;
 }
