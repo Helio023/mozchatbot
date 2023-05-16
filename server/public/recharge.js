@@ -35,7 +35,7 @@ const recharge = (email) => {
     })
     .catch((error) => {
       btn.textContent = 'Recarregar';
-      showAlert('error', error.response?.data);
+      showAlert('error', error.response?.data?.message?.split('. ')[0])
     });
 };
 

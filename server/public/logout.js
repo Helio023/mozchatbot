@@ -8,12 +8,12 @@ const logout = () => {
     url: `${url}/logout`,
   }).then(() => {
     window.location.assign('/');
-  });
+  })
 };
 
-if(logoutBtn) {
+if (logoutBtn) {
   logoutBtn.addEventListener('click', (e) => {
-    e.preventDefault()
-    logout()
-  })
+    e.preventDefault();
+    logout();
+  });
 }

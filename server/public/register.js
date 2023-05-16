@@ -42,7 +42,7 @@ const register = (email, password, username, passwordConfirm) => {
     })
     .catch((error) => {
       btn.textContent = 'Registar'
-      showAlert('error', error.response?.data);
+      showAlert('error', error.response?.data?.message?.split('. ')[0])
       
     });
 };

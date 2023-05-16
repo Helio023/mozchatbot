@@ -1,4 +1,4 @@
-const OperationalError = require('../utils/operationalErrorResponse');
+const OperationalError = require('../utils/sendOperationalError');
 
 const handleDuplicateFields = (e) => {
   let value = Object.values(e.keyValue)[0];
