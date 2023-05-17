@@ -40,6 +40,12 @@ exports.rechargeAccount = catchAsync(async (req, res, next) => {
   client.purchased_expires_at = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
   await client.save({ validateBeforeSave: false });
 
+  const inviter = await User.findOne({ username: client.invitedBy });
+  if (inviter) {
+    inviter.numOfFriends = inviter.numOfFriends + 1;
+    await inviter.save({ validateBeforeSave: false });
+  }
+
   expireRecharge(client.purchased_expires_at, client._id);
   return res.status(200).json({
     status: 'success',

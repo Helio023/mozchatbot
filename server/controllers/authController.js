@@ -17,19 +17,30 @@ exports.signup = catchAsyncError(async (req, res, next) => {
     return next(new OperationalError('Preencha todos os campos'));
   }
 
-  const user = await User.find({ email: email });
+  const user = await User.findOne({ email });
 
-  if (user.email === email) {
+  if (user && user.email === email) {
     return next(new OperationalError('Este email já foi usado.', 409));
   }
 
-  await User.create({
+  const newUser = await User.create({
     username,
     password,
     passwordConfirm,
     email,
     role,
   });
+
+  if (req.query.inviter) {
+    newUser.invitedBy = req.query.inviter;
+    await newUser.save({ validateBeforeSave: false });
+
+    await User.findOneAndUpdate(
+      { username: req.query.inviter },
+      { $push: { invitations: username } },
+      { new: true }
+    );
+  }
 
   res.status(201).json({
     status: 'success',
@@ -221,19 +232,13 @@ exports.restrictTo = (...roles) => {
 // });
 
 exports.updateAllUsers = catchAsyncError(async (req, res) => {
-  const users = await User.find();
+  await User.updateMany(
+    {},
+    { numOfFriends: 0, invitedBy: '', invitations: [] }
+  );
 
-  users.map(async (user) => {
-    {
-      user.max_tokens = 0;
-      user.used_tokens = 0;
-
-      await user.save({ validateBeforeSave: false });
-
-      res.status(201).json({
-        status: 'success',
-        message: 'Usuários actualizados',
-      });
-    }
+  return res.status(201).json({
+    status: 'success',
+    message: 'Usuários actualizados',
   });
 });

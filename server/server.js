@@ -19,6 +19,7 @@ app.set('views', join(__dirname, 'views'));
 app.use(express.static(join(__dirname, 'public')));
 
 //cors setup
+// https://www.mozbotchat.com
 app.use(
   cors({
     origin: 'https://www.mozbotchat.com',

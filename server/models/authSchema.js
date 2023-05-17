@@ -12,6 +12,20 @@ const userSchema = new mongoose.Schema(
       required: [true, 'Nome de usuário obrigatório'],
       unique: [true, 'Este nome de usuário já foi usado.'],
       trim: true,
+      validate: {
+        validator: function (value) {
+          if (/\s/.test(value)) {
+            return false;
+          }
+          if (/[áàâãéèêíïóôõöúüûçñÁÀÂÃÉÈÊÍÏÓÔÕÖÚÜÛÇÑ]/.test(value)) {
+            return false;
+          }
+
+          return true;
+        },
+        message:
+          'O nome de usuário não pode ter duas ou mais palavras separadas ou caracteres acentuados.',
+      },
     },
     purchased_issued_at: { type: Date },
     purchased_expires_at: { type: Date },
@@ -20,17 +34,29 @@ const userSchema = new mongoose.Schema(
       enum: ['user', 'admin'],
       default: 'user',
     },
+    invitations: {
+      type: [String],
+      default: [],
+    },
+    invitedBy: {
+      type: String,
+      default: '',
+    },
+    numOfFriends: {
+      type: Number,
+      default: 0,
+    },
     status: {
       type: Boolean,
       default: false,
     },
     max_tokens: {
       type: Number,
-      default: 0
+      default: 0,
     },
     used_tokens: {
       type: Number,
-      default: 0
+      default: 0,
     },
     email: {
       type: String,
@@ -55,6 +81,14 @@ const userSchema = new mongoose.Schema(
         },
         message: 'As senhas não combinam!',
       },
+    },
+    createdAt: {
+      type: Date,
+      default: () => Date.now(),
+    },
+    updatedAt: {
+      type: Date,
+      default: () => Date.now(),
     },
   },
   {
