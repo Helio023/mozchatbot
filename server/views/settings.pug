@@ -11,13 +11,13 @@ head
         meta(name='description' content='Este é um robo de inteligência artificial que pode responder quase tudo que você precisa saber')
         meta(name='viewport' content='width=device-width, initial-scale=1.0')
         title
-            | Mozbot - minhas configurações
+            | Mozbotchat - configurações
         link(rel='stylesheet' href='./chat.css')
         header.header
             nav.nav
                 a(href='/')
                     h1.nav__logo
-                        | Mozbot
+                        | Mozbotchat
                         img.logo__img(src='./assets/bot.png' alt='robozinho')
                 div#btns
                     a#settings(href='/settings') Configurações
@@ -25,6 +25,7 @@ head
         body.settings-body 
             div#settings-container 
                 h3.username #{user.username}
+                h3.username Meu saldo: #{user.numOfFriends * 10} meticais
                 p.tokens.used-tokens
                     | Tokens usados: 
                     b #{user.used_tokens}
@@ -42,10 +43,13 @@ head
                         p.tokens Expira em: #{user.purchased_expires_at.toLocaleString()}
                 if(user.status === true)
                     div.recharge
-                        h4.title Link de afiliado
-                        p.tokens Daqui a pouco vai poder ganhar dinheiro ao convidar amigos. Estamos trabalhando nisso.
-                        
+                        .container
+                            p Seu link de afiliado
+                            p.last Ganhe 10 meticais sempre que seu convidado recarregar
+                            input#link(type='text' value=`https://www.mozbotchat.com/register?inviter=${user.username}`)
+                            button#copy-button(type='button') Copiar
+
 script(src="/logout.js" type="module")
+script(src="/settings.js") 
 script(src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js") 
-            
-            
+
