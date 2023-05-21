@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/authSchema');
 const catchAsyncError = require('../utils/catchAsync');
 
-exports.home = catchAsyncError(async (req, res) => {
+exports.home = catchAsyncError(async (req, res, next) => {
   if (req.cookies.jwt && req.cookies.jwt !== 'loggedout') {
     const promisifyDecoded = promisify(jwt.verify);
 
@@ -30,7 +30,7 @@ exports.home = catchAsyncError(async (req, res) => {
 });
 
 
-exports.settings = catchAsyncError(async (req, res) => {
+exports.settings = catchAsyncError(async (req, res, next) => {
   if (req.cookies.jwt && req.cookies.jwt !== 'loggedout') {
     const promisifyDecoded = promisify(jwt.verify);
 
@@ -55,7 +55,7 @@ exports.settings = catchAsyncError(async (req, res) => {
   return res.status(200).redirect('login');
 });
 
-exports.register = catchAsyncError(async (req, res) => {
+exports.register = catchAsyncError(async (req, res, next) => {
   if (req.cookies.jwt && req.cookies.jwt !== 'loggedout') {
     const promisifyDecoded = promisify(jwt.verify);
 
@@ -107,7 +107,7 @@ exports.chat = catchAsyncError(async (req, res) => {
   return res.status(400).redirect('login');
 });
 
-exports.recharge = catchAsyncError(async (req, res) => {
+exports.recharge = catchAsyncError(async (req, res, next) => {
   if (
     req.cookies.jwt &&
     req.cookies.jwt !== 'loggedout' &&
