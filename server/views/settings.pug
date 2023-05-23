@@ -25,7 +25,10 @@ head
         body.settings-body 
             div#settings-container 
                 h3.username #{user.username}
-                h3.username Meu saldo: #{user.numOfFriends * 10} meticais
+                if(user.status === true)  
+                    h3.username Meu saldo: #{user.numOfFriends * 40} meticais
+                else
+                    h3.username Meu saldo: #{user.numOfFriends * 10} meticais
                 p.tokens.used-tokens
                     | Tokens usados: 
                     b #{user.used_tokens}
@@ -45,7 +48,7 @@ head
                     div.recharge
                         .container
                             p Seu link de afiliado
-                            p.last Ganhe 10 meticais sempre que seu convidado recarregar
+                            p.last Se você não é um usuário pro, ganhará 10 meticais por cada recarga realizada pelo seu convidado. Porém, se você for um usuário pro, o valor será ainda maior, e você ganhará 40 meticais por cada recarga do seu convidado.
                             input#link(type='text' value=`https://www.mozbotchat.com/register?inviter=${user.username}`)
                             button#copy-button(type='button') Copiar
 
