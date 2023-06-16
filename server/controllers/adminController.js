@@ -27,24 +27,26 @@ exports.rechargeAccount = catchAsync(async (req, res, next) => {
     await inviter.save({ validateBeforeSave: false });
   }
 
-  schedule.scheduleJob(new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), async () => {
-    
-    try {
-      const proUser = await User.findById(client._id);
-      proUser.status = false;
-      proUser.max_tokens = undefined;
-      proUser.used_tokens = undefined;
-      proUser.purchased_expires_at = undefined;
-      proUser.purchased_issued_at = undefined;
+  schedule.scheduleJob(
+    new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
+    async () => {
+      try {
+        const proUser = await User.findById(client._id);
+        proUser.status = false;
+        proUser.max_tokens = undefined;
+        proUser.used_tokens = undefined;
+        proUser.purchased_expires_at = undefined;
+        proUser.purchased_issued_at = undefined;
 
-      await proUser.save({ validateBeforeSave: false });
-    } catch (error) {
-      res.status(500).json({
-        status: 'error',
-        message: 'Algo deu muito errado ao expirar a recarga.',
-      });
+        await proUser.save({ validateBeforeSave: false });
+      } catch (error) {
+        res.status(500).json({
+          status: 'error',
+          message: 'Algo deu muito errado ao expirar a recarga.',
+        });
+      }
     }
-  });
+  );
 
   return res.status(200).json({
     status: 'success',
@@ -81,4 +83,23 @@ exports.cancelRecharge = catchAsync(async (req, res, next) => {
       message: 'Erro ao cancelar a recarga',
     });
   }
+});
+
+exports.getExpiredUsers = catchAsync(async (req, res, next) => {
+  const users = await User.find()
+  const currentDate = new Date();
+
+  const expiredUsers = await User.find({
+    purchased_expires_at: { $lt: currentDate },
+  });
+
+  if (!expiredUsers) {
+    return next(SendOperationalError('Nenhuma recarga expirada', 404));
+  }
+
+  res.status(200).json({
+    status: 'success',
+    users: users,
+    expiredUsers: expiredUsers,
+  });
 });

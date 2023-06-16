@@ -1,5 +1,5 @@
 const { protectRoutes, restrictTo } = require('../controllers/authController');
-const { rechargeAccount, cancelRecharge } = require('../controllers/adminController');
+const { rechargeAccount, cancelRecharge, getExpiredUsers } = require('../controllers/adminController');
 
 const router = require('express').Router();
 
@@ -10,6 +10,10 @@ router
 router
   .route('/cancel')
   .post(protectRoutes, restrictTo('admin'), cancelRecharge);
+
+router
+  .route('/expired-users')
+  .get(protectRoutes, restrictTo('admin'), getExpiredUsers);
 
 module.exports = router;
 
