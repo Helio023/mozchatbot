@@ -22,7 +22,7 @@ app.use(express.static(join(__dirname, 'public')));
 // https://www.mozbotchat.com
 app.use(
   cors({
-    origin: 'http://localhost:3000',
+    origin: 'https://www.mozbotchat.com',
   })
 );
 
