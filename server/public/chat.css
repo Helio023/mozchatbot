@@ -396,11 +396,12 @@ button#copy-button {
   background: #fff;
   color: #3C6255;
 }
-.container {
+.t-container {
   overflow-x: auto;
   width: 100%;
    display: flex;
   justify-content: center;
+  padding: 0 7px;
   
 }
 
