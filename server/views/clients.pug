@@ -1,0 +1,51 @@
+doctype html
+head
+    meta(charset='UTF-8')
+    meta(http-equiv='X-UA-Compatible' content='IE=edge')
+    meta(name='viewport' content='width=device-width, initial-scale=1.0')
+    head
+        meta(charset='UTF-8')
+        link(rel='icon' type='image/svg+xml' href='/assets/bot.png')
+        meta(name='author' content='Hélio Engrácia Mapupo')
+        meta(name='google-site-verification' content='NcaIGPNruyoMP8Iwe6pj34SYOjz__-r9Ja69i2Q-BRI')
+        meta(name='description' content='Este é um robo de inteligência artificial que pode responder quase tudo que você precisa saber')
+        meta(name='viewport' content='width=device-width, initial-scale=1.0')
+        title
+            | Mozbotchat - configurações
+        link(rel='stylesheet' href='./chat.css')
+        header.header
+            nav.nav
+                a(href='/')
+                    h1.nav__logo
+                        | Mozbotchat
+                        img.logo__img(src='./assets/bot.png' alt='robozinho')
+                div#btns
+                    a#settings(href='/settings') Configurações
+                    button#logout-btn(type='submit') Sair
+        body.settings-body
+            if(user.invitations.length > 0)
+                .container
+                    table.table
+                        thead
+                            tr
+                            th Nome 
+                            th Email
+                            th Registo
+                            th Recarga
+
+                        tbody
+                            each user in users
+                                tr
+                                    td= user.username
+                                    td= user.email
+                                    td= user.createdAt.toLocaleString()
+                                    td(class=user.status === true ? 'paid' : 'unpaid')
+                                        | #{user.status ? 'Paga' : 'Não paga'}
+            else            
+                div.noclients Você ainda não tem clientes registados
+
+
+script(src="/logout.js" type="module")
+script(src="/settings.js") 
+script(src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js") 
+

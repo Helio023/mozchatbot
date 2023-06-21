@@ -24,11 +24,9 @@ exports.home = catchAsyncError(async (req, res, next) => {
 
     return res.status(200).redirect('chat');
   }
-  
 
   return res.status(200).render('login');
 });
-
 
 exports.settings = catchAsyncError(async (req, res, next) => {
   if (req.cookies.jwt && req.cookies.jwt !== 'loggedout') {
@@ -50,6 +48,33 @@ exports.settings = catchAsyncError(async (req, res, next) => {
     }
 
     return res.status(200).render('settings');
+  }
+
+  return res.status(200).redirect('login');
+});
+
+exports.clients = catchAsyncError(async (req, res, next) => {
+  if (req.cookies.jwt && req.cookies.jwt !== 'loggedout') {
+    const users = await User.find({ invitedBy: req.user.username });
+
+    const promisifyDecoded = promisify(jwt.verify);
+
+    const decoded = await promisifyDecoded(
+      req.cookies.jwt,
+      process.env.JWT_SECRET
+    );
+
+    const currentUser = await User.findById(decoded.id);
+
+    if (!currentUser) {
+      return next();
+    }
+
+    if (currentUser.changedPasswordAfterJWT(decoded.iat)) {
+      return next();
+    }
+
+    return res.status(200).render('clients', { users });
   }
 
   return res.status(200).redirect('login');

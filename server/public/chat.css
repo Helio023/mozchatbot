@@ -377,3 +377,88 @@ button#copy-button {
   border: none;
   cursor: pointer;
 }
+
+.submenu {
+  margin-top: 10px;
+  justify-content: center;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.submenu  a {
+  cursor: pointer;
+}
+
+.submenu .btn {
+  padding: 5px;
+  border-radius: 3px;
+  background: #fff;
+  color: #3C6255;
+}
+.container {
+  overflow-x: auto;
+  width: 100%;
+   display: flex;
+  justify-content: center;
+  
+}
+
+
+.table {
+  width: max-content;
+  border-collapse: collapse;
+  background-color: #f8f8f8;
+  margin: 20px 0;
+
+}
+
+.table th,
+.table td {
+  padding: 12px 5px;
+  text-align: left;
+}
+
+.table thead {
+  background-color: #333;
+  color: #fff;
+}
+
+.table th {
+  text-transform: uppercase;
+}
+
+
+.table tbody tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.table tbody tr:hover {
+  background-color: #ddd;
+}
+
+.paid {
+  color: #27ae60;
+  font-weight: bold;
+}
+
+.unpaid {
+  color: #c0392b;
+  font-weight: bold;
+}
+
+
+
+
+
+
+
+.noclients {
+  max-width: 300px;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  color: #eee;
+  background-color: #4b4949;
+  margin: 10px auto;
+}

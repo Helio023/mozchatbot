@@ -22,7 +22,7 @@ app.use(express.static(join(__dirname, 'public')));
 // https://www.mozbotchat.com
 app.use(
   cors({
-    origin: 'https://www.mozbotchat.com',
+    origin: "https://www.mozbotchat.com"
   })
 );
 
@@ -44,9 +44,7 @@ app.use('/', require('./routes/chatRoutes'));
 app.use('/', require('./routes/adminRoutes'));
 
 app.all('*', (req, res, next) => {
-  next(
-    new SendOperationalError(`Rota não encontrada: ${req.originalUrl}`, 404)
-  );
+  res.status(404).render('notfound')
 });
 
 app.use(globalErrorHandler);

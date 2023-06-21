@@ -23,8 +23,17 @@ head
                     a#settings(href='/settings') Configurações
                     button#logout-btn(type='submit') Sair
         body.settings-body 
+            if(user.role === 'user')
+                div.submenu              
+                    a.btn(href='/clients') Ver meus clientes
+            else
+                div.submenu
+                    a(href='/expired') Expirados
+                    a(href='/users') Usu&aacute;rios
+ 
             div#settings-container 
                 h3.username #{user.username}
+                
                 if(user.status === true)  
                     h3.username Meu saldo: #{user.numOfFriends * 40} meticais
                 else
@@ -44,11 +53,6 @@ head
                         h4.title Dados da recarga
                         p.tokens Recarregada em: #{user.purchased_issued_at.toLocaleString()}
                         p.tokens Expira em: #{user.purchased_expires_at.toLocaleString()}  
-                //- if(user.status === true )
-                //-     div.recharge
-                //-         h4.title Meus clientes
-                //-             each user in user.invitations
-                //-                 p.tokens Nome #{user.invitations.length}
                          
                 if(user.status === true)
                     div.recharge
