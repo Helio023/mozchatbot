@@ -12,6 +12,10 @@ exports.home = catchAsyncError(async (req, res, next) => {
       process.env.JWT_SECRET
     );
 
+    if(!decoded) {
+      return res.status(200).redirect('login');
+    }
+
     const currentUser = await User.findById(decoded.id);
 
     if (!currentUser) {
