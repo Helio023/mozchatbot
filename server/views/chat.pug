@@ -24,7 +24,9 @@ head
           a#settings(href='/settings') Configurações
           button#logout-btn(type='submit') Sair
       if user.role === 'admin'
-        a(href='/recharge') Recarregar
+        div.admin-btns 
+          a(href='/recharge') Recarregar
+          a(href='/cancel') Cancelar
       else 
         span
     #chat_container

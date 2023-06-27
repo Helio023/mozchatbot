@@ -11,7 +11,7 @@ head
         meta(name='description' content='Este é um robo de inteligência artificial que pode responder quase tudo que você precisa saber')
         meta(name='viewport' content='width=device-width, initial-scale=1.0')
         title
-            | Mozbotchat - meus clientes
+            | Mozbotchat - todos usuários
         link(rel='stylesheet' href='./chat.css')
         header.header
             nav.nav
@@ -22,12 +22,13 @@ head
                 div#btns
                     a#settings(href='/settings') Configurações
                     button#logout-btn(type='submit') Sair
-        body.settings-body
-            div.statistic
-                p Total: #{user.invitations.length}
-                p.pro Usuário PRO: #{proUsers.length}
-                p.free Usuário FREE: #{freeUsers.length}
-            if(user.invitations.length > 0)
+        body.settings-body 
+                - var proUsers = users.filter(user => user.status === true).length
+                - var freeUsers = users.filter(user => user.status === false).length
+                div.statistic
+                    p Total: #{users.length}
+                    p.pro Usuário PRO: #{proUsers}
+                    p.free Usuário FREE: #{freeUsers}
                 .t-container
                     table.table
                         thead
@@ -35,7 +36,7 @@ head
                             th Nome 
                             th Email
                             th Registo
-                            th Recarga
+                            th Tipo de usuário
 
                         tbody
                             each user in users
@@ -44,9 +45,8 @@ head
                                     td= user.email
                                     td= user.createdAt.toLocaleString()
                                     td(class=user.status === true ? 'paid' : 'unpaid')
-                                        | #{user.status ? 'Paga' : 'Não paga'}
-            else            
-                div.noclients Você ainda não tem clientes registados
+                                        | #{user.status ? 'Pro' : 'Free'}
+            
 
 
 script(src="/logout.js" type="module")

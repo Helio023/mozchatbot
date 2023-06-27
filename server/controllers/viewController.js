@@ -12,7 +12,7 @@ exports.home = catchAsyncError(async (req, res, next) => {
       process.env.JWT_SECRET
     );
 
-    if(!decoded) {
+    if (!decoded) {
       return res.status(200).redirect('login');
     }
 
@@ -57,9 +57,46 @@ exports.settings = catchAsyncError(async (req, res, next) => {
   return res.status(200).redirect('login');
 });
 
+exports.expired = catchAsyncError(async (req, res, next) => {
+  if (req.cookies.jwt && req.cookies.jwt !== 'loggedout') {
+
+    const currentDate = new Date();
+
+    const expiredUsers = await User.find({
+      purchased_expires_at: { $lt: currentDate },
+    });
+
+    if (!expiredUsers) {
+      return next(SendOperationalError('Nenhuma recarga expirada', 404));
+    }
+    const promisifyDecoded = promisify(jwt.verify);
+
+    const decoded = await promisifyDecoded(
+      req.cookies.jwt,
+      process.env.JWT_SECRET
+    );
+
+    const currentUser = await User.findById(decoded.id);
+
+    if (!currentUser) {
+      return next();
+    }
+
+    if (currentUser.changedPasswordAfterJWT(decoded.iat)) {
+      return next();
+    }
+
+    return res.status(200).render('expired', {users: expiredUsers});
+  }
+
+  return res.status(200).redirect('login');
+});
+
 exports.clients = catchAsyncError(async (req, res, next) => {
   if (req.cookies.jwt && req.cookies.jwt !== 'loggedout') {
     const users = await User.find({ invitedBy: req.user.username });
+    const freeUsers = users.filter(user => user.status === false);
+    const proUsers = users.filter(user => user.status === true);
 
     const promisifyDecoded = promisify(jwt.verify);
 
@@ -78,7 +115,61 @@ exports.clients = catchAsyncError(async (req, res, next) => {
       return next();
     }
 
-    return res.status(200).render('clients', { users });
+    return res.status(200).render('clients', { users, freeUsers, proUsers });
+  }
+
+  return res.status(200).redirect('login');
+});
+
+exports.users = catchAsyncError(async (req, res, next) => {
+  if (req.cookies.jwt && req.cookies.jwt !== 'loggedout') {
+    const users = await User.find();
+
+    const promisifyDecoded = promisify(jwt.verify);
+
+    const decoded = await promisifyDecoded(
+      req.cookies.jwt,
+      process.env.JWT_SECRET
+    );
+
+    const currentUser = await User.findById(decoded.id);
+
+    if (!currentUser) {
+      return next();
+    }
+
+    if (currentUser.changedPasswordAfterJWT(decoded.iat)) {
+      return next();
+    }
+
+    return res.status(200).render('users', { users });
+  }
+
+  return res.status(200).redirect('login');
+});
+
+exports.cancel = catchAsyncError(async (req, res, next) => {
+  if (req.cookies.jwt && req.cookies.jwt !== 'loggedout') {
+    const users = await User.find();
+
+    const promisifyDecoded = promisify(jwt.verify);
+
+    const decoded = await promisifyDecoded(
+      req.cookies.jwt,
+      process.env.JWT_SECRET
+    );
+
+    const currentUser = await User.findById(decoded.id);
+
+    if (!currentUser) {
+      return next();
+    }
+
+    if (currentUser.changedPasswordAfterJWT(decoded.iat)) {
+      return next();
+    }
+
+    return res.status(200).render('cancel');
   }
 
   return res.status(200).redirect('login');

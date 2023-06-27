@@ -11,7 +11,7 @@ head
         meta(name='description' content='Este é um robo de inteligência artificial que pode responder quase tudo que você precisa saber')
         meta(name='viewport' content='width=device-width, initial-scale=1.0')
         title
-            | Mozbotchat - meus clientes
+            | Mozbotchat - recargas expiradas
         link(rel='stylesheet' href='./chat.css')
         header.header
             nav.nav
@@ -23,30 +23,25 @@ head
                     a#settings(href='/settings') Configurações
                     button#logout-btn(type='submit') Sair
         body.settings-body
-            div.statistic
-                p Total: #{user.invitations.length}
-                p.pro Usuário PRO: #{proUsers.length}
-                p.free Usuário FREE: #{freeUsers.length}
-            if(user.invitations.length > 0)
+            if(users.length > 0)
                 .t-container
                     table.table
                         thead
                             tr
-                            th Nome 
                             th Email
                             th Registo
-                            th Recarga
+                            th Validade
+
 
                         tbody
                             each user in users
                                 tr
-                                    td= user.username
                                     td= user.email
                                     td= user.createdAt.toLocaleString()
                                     td(class=user.status === true ? 'paid' : 'unpaid')
-                                        | #{user.status ? 'Paga' : 'Não paga'}
+                                        | #{user.status ? 'Activa' : 'Expirada'}
             else            
-                div.noclients Você ainda não tem clientes registados
+                div.noclients Nenhuma recarga expirada!
 
 
 script(src="/logout.js" type="module")

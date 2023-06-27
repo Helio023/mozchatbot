@@ -414,6 +414,24 @@ button#copy-button {
 
 }
 
+.statistic {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  color: #eee;
+  padding: 10px 0;
+}
+.statistic p{
+ font-weight: bold;
+}
+.pro {
+  color: #27ae60;
+}
+.free {
+  color: #c0392b;
+}
+
 .table th,
 .table td {
   padding: 12px 5px;
@@ -449,11 +467,6 @@ button#copy-button {
 }
 
 
-
-
-
-
-
 .noclients {
   max-width: 300px;
   padding: 20px;
@@ -462,4 +475,11 @@ button#copy-button {
   color: #eee;
   background-color: #4b4949;
   margin: 10px auto;
+}
+
+.admin-btns  {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
 }
