@@ -13,6 +13,8 @@ head
     title
       | Mozbotchat - uma intelig&ecirc;ncia artificial que responde todas suas perguntas
     link(rel='stylesheet' href='./chat.css')
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js" defer ></script>
+
   #app
     header.header
       nav.nav
@@ -36,6 +38,7 @@ head
         button(type='submit') Enviar
     else
       a#whatsapp-btn(href=`https://wa.me/258845031480?text=Preciso de uma recarga Mozbotchat para o seguinte email: ${user.email}` target="_blank") Recarrega a sua conta para usar o Mozbot: 350 MT/mês
-  script(type='module' src='/script.js')
+
+  script(type='module' src='/bundle.js')
   script(src="/logout.js" type="module") 
   script(src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js")

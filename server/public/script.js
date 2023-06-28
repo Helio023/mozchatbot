@@ -1,3 +1,5 @@
+import TurndownService from 'turndown';
+
 const form = document.querySelector('form');
 const chatContainer = document.querySelector('#chat_container');
 
@@ -37,6 +39,8 @@ function generateRandomId() {
 }
 
 function chatStripe(isAi, value, uniqueId) {
+  const turndownService = new TurndownService();
+  const renderedValue = turndownService.turndown(value);
   return `
   <div class="wrapper ${isAi && 'ai'}" >
     <div class="chat">
@@ -47,7 +51,7 @@ function chatStripe(isAi, value, uniqueId) {
   }"/>
         
     </div>
-    <div class="message" id=${uniqueId}>${value}</div>
+    <div class="message" id=${uniqueId}>${renderedValue}</div>
     </div>
   
   </div>
@@ -92,8 +96,7 @@ export const handleSubmit = async (e) => {
     messageDiv.innerHTML = 'Algo deu errado, tenta outra vez.';
   }
 };
-if(form) {
-
+if (form) {
   form.addEventListener('submit', handleSubmit);
   form.addEventListener('keyup', (e) => {
     if (e.code === 'Enter') {
@@ -101,4 +104,3 @@ if(form) {
     }
   });
 }
-
