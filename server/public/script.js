@@ -1,4 +1,4 @@
-import TurndownService from 'turndown';
+
 
 const form = document.querySelector('form');
 const chatContainer = document.querySelector('#chat_container');
@@ -39,8 +39,7 @@ function generateRandomId() {
 }
 
 function chatStripe(isAi, value, uniqueId) {
-  const turndownService = new TurndownService();
-  const renderedValue = turndownService.turndown(value);
+ 
   return `
   <div class="wrapper ${isAi && 'ai'}" >
     <div class="chat">
@@ -51,7 +50,7 @@ function chatStripe(isAi, value, uniqueId) {
   }"/>
         
     </div>
-    <div class="message" id=${uniqueId}>${renderedValue}</div>
+    <div class="message" id=${uniqueId}>${value}</div>
     </div>
   
   </div>
