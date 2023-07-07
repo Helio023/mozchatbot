@@ -3,64 +3,56 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/authSchema');
 const catchAsyncError = require('../utils/catchAsync');
 
+// exports.home = catchAsyncError(async (req, res, next) => {
+//   if (req.cookies.jwt && req.cookies.jwt !== 'loggedout') {
+//     const promisifyDecoded = promisify(jwt.verify);
+
+//     const decoded = await promisifyDecoded(
+//       req.cookies.jwt,
+//       process.env.JWT_SECRET
+//     );
+
+//     const currentUser = await User.findById(decoded.id);
+//     console.log(currentUser);
+
+//     if (!currentUser) {
+//       return res.status(200).redirect('login');
+//     }
+
+//     if (currentUser.changedPasswordAfterJWT(decoded.iat)) {
+//       return res.status(200).redirect('login');
+//     }
+
+//     return res.status(200).redirect('chat');
+//   }
+
+//   return res.status(200).render('login');
+// });
+
 exports.home = catchAsyncError(async (req, res, next) => {
   if (req.cookies.jwt && req.cookies.jwt !== 'loggedout') {
-    const promisifyDecoded = promisify(jwt.verify);
+    try {
+      const decoded = await promisify(jwt.verify)(
+        req.cookies.jwt,
+        process.env.JWT_SECRET
+      );
 
-    const decoded = await promisifyDecoded(
-      req.cookies.jwt,
-      process.env.JWT_SECRET
-    );
+      const currentUser = await User.findById(decoded.id);
 
-    if (!decoded) {
-      return res.status(200).redirect('login');
+      if (!currentUser || currentUser.changedPasswordAfterJWT(decoded.iat)) {
+        return res.status(200).redirect('/login');
+      }
+
+      return res.status(200).redirect('/chat');
+    } catch (error) {
+      console.log(error);
+      return res.status(200).redirect('/login');
     }
-
-    const currentUser = await User.findById(decoded.id);
-
-    if (!currentUser) {
-      return res.status(200).redirect('login');
-    }
-
-    if (currentUser.changedPasswordAfterJWT(decoded.iat)) {
-      return res.status(200).redirect('login');
-    }
-
-    return res.status(200).redirect('chat');
   }
 
   return res.status(200).render('login');
 });
 
-// exports.home = catchAsyncError(async (req, res, next) => {
-//   if (req.cookies.jwt && req.cookies.jwt !== 'loggedout') {
-//     const promisifyDecoded = promisify(jwt.verify);
-
-//     try {
-//       const decoded = await promisifyDecoded(
-//         req.cookies.jwt,
-//         process.env.JWT_SECRET
-//       );
-
-//       const currentUser = await User.findById(decoded.id);
-
-//       if (!currentUser) {
-//         return next();
-//       }
-
-//       if (currentUser.changedPasswordAfterJWT(decoded.iat)) {
-//         return next();
-//       }
-
-//       return res.status(200).redirect('chat');
-//     } catch (err) {
-//       // Erro ao verificar o token JWT (expirado, inválido, etc.)
-//       return res.status(200).redirect('login');
-//     }
-//   }
-
-//   return res.status(200).render('login');
-// });
 
 
 exports.settings = catchAsyncError(async (req, res, next) => {

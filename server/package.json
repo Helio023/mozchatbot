@@ -32,9 +32,14 @@
     "validator": "^13.9.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.22.8",
+    "@babel/preset-env": "^7.22.7",
+    "babel-loader": "^9.1.2",
     "esm": "^3.2.25",
     "nodemon": "^1.14.9",
-    "parcel-bundler": "^1.5.1"
+    "parcel-bundler": "^1.5.1",
+    "webpack": "^5.88.1",
+    "webpack-cli": "^5.1.4"
   },
   "engines": {
     "node": ">=14.20.1",

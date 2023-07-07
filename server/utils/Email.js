@@ -10,12 +10,12 @@ const auth = {
   },
 };
 
-module.exports = class Email {
+ class Email {
   constructor(user, url) {
     this.to = user.email;
     this.username = user.username;
     this.url = url;
-    this.from = 'Mozbotchat <hiotech.co>';
+    this.from = '<hiotech.co>';
   }
 
   newTransport() {
@@ -44,3 +44,5 @@ module.exports = class Email {
     await this.send('forgot', 'Token para redefinir senha <válido por 10 minutos>');
   }
 };
+
+module.exports =  Email 

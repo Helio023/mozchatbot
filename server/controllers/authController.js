@@ -1,10 +1,11 @@
 const { promisify } = require('util');
-const crypto = require('crypto');
+// const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
 const User = require('../models/authSchema');
 const catchAsyncError = require('../utils/catchAsync');
 const OperationalError = require('../utils/sendOperationalError');
-const SendOperationalError = require('../utils/sendOperationalError');
+// const SendOperationalError = require('../utils/sendOperationalError');
+// const Email = require('../utils/email')
 
 const sendTokenViaCookie = (user, statusCode, req, res, token) => {
   res.cookie('jwt', token, {
@@ -85,7 +86,7 @@ exports.protectRoutes = catchAsyncError(async (req, res, next) => {
   }
 
   if (!token) {
-    res.status(400).redirect('/');
+    return res.status(200).redirect('login');;
   }
 
   const promisifyDecoded = promisify(jwt.verify);
@@ -101,7 +102,7 @@ exports.protectRoutes = catchAsyncError(async (req, res, next) => {
   }
 
   if (currentUser.changedPasswordAfterJWT(decoded.iat)) {
-    res.status(400).redirect('/');
+    return res.status(200).redirect('login');
   }
 
   req.user = currentUser;
@@ -121,11 +122,11 @@ exports.isLoggedIn = catchAsyncError(async (req, res, next) => {
     const currentUser = await User.findById(decoded.id);
 
     if (!currentUser) {
-      return next();
+      return res.status(200).redirect('login');
     }
 
     if (currentUser.changedPasswordAfterJWT(decoded.iat)) {
-      return next();
+      return res.status(200).redirect('login');
     }
 
     res.locals.user = currentUser;
@@ -158,77 +159,78 @@ exports.restrictTo = (...roles) => {
   };
 };
 
-exports.forgotPassword = catchAsyncError(async (req, res, next) => {
-  const user = await User.findOne({ email: req.body.email });
+// exports.forgotPassword = catchAsyncError(async (req, res, next) => {
+//   const user = await User.findOne({ email: req.body.email });
 
-  if (!req.body.email) {
-    return next(new SendOperationalError('Especifique o seu email', 404));
-  }
+//   if (!req.body.email) {
+//     return next(new SendOperationalError('Especifique o seu email', 404));
+//   }
 
-  if (!user) {
-    return next(
-      new SendOperationalError('Não há usuário com este email.', 404)
-    );
-  }
+//   if (!user) {
+//     return next(
+//       new SendOperationalError('Não há usuário com este email.', 404)
+//     );
+//   }
 
-  const resetToken = user.createPasswordResetToken();
-  await user.save({ validateBeforeSave: false });
+//   const resetToken = user.createPasswordResetToken();
+//   await user.save({ validateBeforeSave: false });
+  
 
-  try {
-    const url = `http://localhost:3000/reset-password/${resetToken}`;
-    await new Email(user, url).sendPasswordReset();
+//   try {
+//     const url = `http://localhost:3000/reset-password/${resetToken}`;
+//     await new Email(user, url).sendPasswordReset();
 
-    res.status(200).json({
-      status: 'success',
-      message: 'Token enviado para o email!',
-    });
-  } catch (err) {
-    return next(
-      new SendOperationalError(
-        `Houve um erro ao enviar o email. Tenta mais tarde!`
-      ),
-      500
-    );
-  }
-});
+//     res.status(200).json({
+//       status: 'success',
+//       message: 'Token enviado para o email!',
+//     });
+//   } catch (err) {
+//     return next(
+//       new SendOperationalError(
+//         `Houve um erro ao enviar o email. Tenta mais tarde!: ${err}`
+//       ),
+//       500
+//     );
+//   }
+// });
 
-exports.resetPassword = catchAsyncError(async (req, res, next) => {
-  const { password, passwordConfirm } = req.body;
+// exports.resetPassword = catchAsyncError(async (req, res, next) => {
+//   const { password, passwordConfirm } = req.body;
 
-  if (!password || !passwordConfirm) {
-    return next(
-      new SendOperationalError('Escreva a sua senha e confirme por favor', 400)
-    );
-  }
+//   if (!password || !passwordConfirm) {
+//     return next(
+//       new SendOperationalError('Escreva a sua senha e confirme por favor', 400)
+//     );
+//   }
 
-  const hashedToken = crypto
-    .createHash('sha256')
-    .update(req.params.token)
-    .digest('hex');
+//   const hashedToken = crypto
+//     .createHash('sha256')
+//     .update(req.params.token)
+//     .digest('hex');
 
-  const user = await User.findOne({
-    passwordResetToken: hashedToken,
-    passwordResetExpires: { $gt: Date.now() },
-  });
+//   const user = await User.findOne({
+//     passwordResetToken: hashedToken,
+//     passwordResetExpires: { $gt: Date.now() },
+//   });
 
-  if (!user) {
-    return next(new operationalError('Token inválido ou expirado', 400));
-  }
-  user.password = password;
-  user.passwordConfirm = passwordConfirm;
-  user.passwordResetToken = undefined;
-  user.passwordResetExpires = undefined;
-  await user.save();
+//   if (!user) {
+//     return next(new operationalError('Token inválido ou expirado', 400));
+//   }
+//   user.password = password;
+//   user.passwordConfirm = passwordConfirm;
+//   user.passwordResetToken = undefined;
+//   user.passwordResetExpires = undefined;
+//   await user.save();
 
-  const token = user.createToken(user);
+//   const token = user.createToken(user);
 
-  sendTokenViaCookie(user, 200, req, res, token);
+//   sendTokenViaCookie(user, 200, req, res, token);
 
-  res.status(200).json({
-    status: 'success',
-    token,
-  });
-});
+//   res.status(200).json({
+//     status: 'success',
+//     token,
+//   });
+// });
 
 exports.updateAllUsers = catchAsyncError(async (req, res) => {
   await User.updateMany(
