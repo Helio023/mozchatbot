@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const { isLoggedIn, protectRoutes } = require('../controllers/authController');
-const { home, register, chat, recharge, cancel, expired, users, notfound, settings, clients } = require('../controllers/viewController');
+const { home, register, chat, login, recharge, cancel, expired, users, notfound, settings, clients } = require('../controllers/viewController');
 
 // router.use(isLoggedIn)
 router.route('/').get(home);
@@ -13,5 +13,6 @@ router.route('/clients').get(protectRoutes, isLoggedIn, clients);
 router.route('/expired').get(protectRoutes, isLoggedIn, expired);
 router.route('/users').get(protectRoutes, isLoggedIn, users);
 router.route('/cancel').get(protectRoutes, isLoggedIn, cancel);
+router.route('/login').get(protectRoutes, isLoggedIn, cancel);
 
 module.exports = router;
