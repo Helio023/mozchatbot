@@ -206,12 +206,12 @@ if (form) {
   });
 }
 
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/service-worker.js')
-      .then(function() {
-        console.log('Service Worker registered with scope:');
-      })
-      .catch(function(error) {
-        console.log('Service Worker registration failed:', error);
-      });
-  }
+  // if ('serviceWorker' in navigator) {
+  //   navigator.serviceWorker.register('/service-worker.js')
+  //     .then(function() {
+  //       console.log('Service Worker registered with scope:');
+  //     })
+  //     .catch(function(error) {
+  //       console.log('Service Worker registration failed:', error);
+  //     });
+  // }
