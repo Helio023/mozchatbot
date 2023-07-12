@@ -1,7 +1,7 @@
 {
   "name": "Mozbotchat",
   "short_name": "Mozbotchat",
-  "start_url": "/",
+  "start_url": "/chat",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#343541",
