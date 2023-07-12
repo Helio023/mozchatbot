@@ -25,15 +25,18 @@ exports.chat = async (req, res, next) => {
 
   if (user.used_tokens < user.max_tokens) {
     try {
-      const response = await openai.createChatCompletion({
+      const conversation = [{ role: 'user', content: prompt }];
+  
+      let response = await openai.createChatCompletion({
         model: 'gpt-3.5-turbo',
-        messages: [{ role: 'user', content: prompt }],
+        messages: conversation,
       });
 
       user.used_tokens =
         user.used_tokens + response.data.usage.completion_tokens;
       await user.save({ validateBeforeSave: false });
 
+           
       return res.status(200).json({
         bot: response.data.choices[0].message.content,
         usedTokens: response.data.usage.completion_tokens,
@@ -42,7 +45,7 @@ exports.chat = async (req, res, next) => {
     } catch (error) {
       return res.status(500).json({
         status: 'error',
-        message: 'Algo deu errado! Tenta outra vez.',
+        message: `Algo deu errado! Tenta outra vez: ${error}`,
       });
     }
   }

@@ -40,7 +40,6 @@ const login = (email, password) => {
     .catch((error) => {
       btn.textContent = 'Enviar';
       showAlert('error', error.response?.data?.message?.split('. ')[0]);
-    
     });
 };
 
