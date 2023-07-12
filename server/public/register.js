@@ -63,3 +63,5 @@ form.addEventListener('submit', (e) => {
 
   register(email.value, password.value, username.value, passwordConfirm.value);
 });
+
+

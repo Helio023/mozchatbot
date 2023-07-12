@@ -43,9 +43,9 @@ app.use('/', require('./routes/authRoutes'));
 app.use('/', require('./routes/chatRoutes'));
 app.use('/', require('./routes/adminRoutes'));
 
-app.get('./service-worker.js', (req, res) => {
-  res.sendFile(path.resolve(__dirname, 'public', 'service-worker.js'));
-});
+// app.get('./public/service-worker.js', (req, res) => {
+//   res.sendFile(path.resolve(__dirname, 'public', 'service-worker.js'));
+// });
 
 app.all('*', (req, res, next) => {
   res.status(404).render('notfound')

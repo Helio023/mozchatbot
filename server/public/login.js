@@ -50,3 +50,4 @@ form.addEventListener('submit', (e) => {
 
   login(email.value, password.value);
 });
+
