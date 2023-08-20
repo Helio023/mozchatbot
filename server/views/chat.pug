@@ -33,7 +33,7 @@ head
       else 
         span
     #chat_container
-    if user.status === true
+    if user.status === true || user.status === false
       form#chat-form
         textarea(name='prompt' cols='1' rows='1' placeholder='Olá, o que gostaria de saber?')
         button(type='submit') Enviar
