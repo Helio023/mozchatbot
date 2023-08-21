@@ -14,7 +14,8 @@ exports.chat = async (req, res, next) => {
   const prompt = req.body.prompt;
   const user = await User.findOne({ email: req.user.email });
 
-  if (!user) {
+
+  if (!user || user.status === false) {
     return next(
       new SendOperationalError(
         'Este usuário não existe ou a sua conta não está recarregada',
@@ -22,17 +23,9 @@ exports.chat = async (req, res, next) => {
       )
     );
   }
-  // if (!user || user.status === false) {
-  //   return next(
-  //     new SendOperationalError(
-  //       'Este usuário não existe ou a sua conta não está recarregada',
-  //       401
-  //     )
-  //   );
-  // }
 
-  // if (user.used_tokens < user.max_tokens) {
-  if (user) {
+  if (user.used_tokens < user.max_tokens) {
+
     try {
       const conversation = [{ role: 'user', content: prompt }];
   
